@@ -1,33 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
- import Country from './components/Country/Country';
- import Cart from './components/Cart/Cart';
+  import Cart from './component/Cart/Cart';
+ import BusinessmanData from './data/data.json'
+ import People from './components/People/People'
 
 function App() {
-  const [countries, setCountries]= useState([]);
-  const [cart, setCart]=useState([]);
+  const [Businessman, setBusinessman]= useState([]);
+   const [cart, setCart]=useState([]);
 
-  useEffect(()=>{
-      fetch('https://restcountries.eu/rest/v2/all')
-       .then(res=>res.json())
-       .then(data=> setCountries(data))
-       .catch(error=>console.log(error))
+  useEffect(() =>{
+    setBusinessman(BusinessmanData);
+    // .catch(error=>console.log(error));
+    // console.log(BusinessmanData);
+  },[])
 
-       },[])
-
-       const handleAddCountry =(country)=>{
-         const newCart=[...cart, country];
+  
+       const handleAddpeople =(people)=>{
+         const newCart=[...cart, people];
           setCart(newCart);
        }
   return (
     <div className="App">
-      <h1> Country Loaded:{countries.length}</h1>
-       <h4>Country added:{cart.length}</h4>
+      <h1> Name Loaded:{Businessman.length}</h1>
+       <h4>Name added:{cart.length}</h4>
         <Cart cart={cart}>this is cart</Cart>
      
       <ul>
-        {countries.map(country=><Country country={country} handleAddCountry={handleAddCountry} key={country.alpha3Code}></Country>)}
+       
+        {Businessman.map(people=><People people={people} handleAddpeople={handleAddpeople}> </People>)}
       </ul>
  
     
